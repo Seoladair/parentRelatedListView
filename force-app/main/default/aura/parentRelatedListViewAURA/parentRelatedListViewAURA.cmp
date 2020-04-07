@@ -1,0 +1,116 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="RelatedListController" >
+    <aura:attribute name="doneLoading" type="Boolean" default="False"/>      
+    <aura:attribute name="title" type="String"/>  
+    <aura:attribute name="criteria" type="String"/>  
+	<aura:attribute name="relatedListURL" type="String"/>  
+    <aura:attribute name="lookupFieldName" type="String"/>
+    <aura:attribute name="parentFieldName" type="String"/>
+    <aura:attribute name="parentRecId" type="String"/>
+    <aura:attribute name="objectName" type="String"/>
+    <aura:attribute name="sobjectName" type="String"/>
+    <aura:attribute name="childRelName" type="String"/>
+    <aura:attribute name="iconName" type="String"/>  
+    <aura:attribute name="field1" type="String"/>
+    <aura:attribute name="field2" type="String"/>
+    <aura:attribute name="field3" type="String"/>  
+    <aura:attribute name="field4" type="String"/>  
+    <aura:attribute name="listRecords" type="sObject[]"/>  
+    <aura:attribute name="showErrors" type="Boolean" default="True"/>      
+    <aura:attribute name="errorMessage" type="String"/>
+      
+    <aura:handler name="init" value="{!this}" action="{!c.fetchRecords}"/>  
+    
+    <lightning:card iconName="{!v.iconName}"> 
+          
+        <aura:set attribute="title"> 
+              
+            <aura:if isTrue="{!not(v.doneLoading)}">  
+                Loading...
+            </aura:if>  
+            
+            <aura:if isTrue="{!v.showErrors}">  
+                Uh-Oh!
+            </aura:if>  
+                       
+            <aura:if isTrue="{!and(not(v.showErrors),v.doneLoading)}">  
+                <lightning:button variant="base"   
+                                  label="{!v.title}"
+                                  title="View All Action"   
+                                  onclick="{! c.viewRelatedList }"/>                    
+            </aura:if>  
+            
+        </aura:set>  
+        
+	    <p class="slds-p-horizontal_small">  
+            <aura:if isTrue="{!v.showErrors}">
+                <!-- Show the message to UI -->
+                <div class="slds-notify slds-notify_toast slds-theme_alert-texture">
+                    <span class="slds-assistive-text">Error</span>
+                    <div class="slds-notify__content">
+                        <h5 class="slds-text-heading_small slds-align_absolute-center">
+                            <lightning:icon iconName="utility:error" size="small" variant="error" alternativeText="Error" class="slds-m-right_xx-small"/>
+                            Error Message 
+                        </h5>
+                        <br/>
+                        <p class="slds-align_absolute-left">{!v.errorMessage}</p>                
+                    </div>
+                </div>                
+            </aura:if>
+                      
+            <aura:if isTrue="{!not(v.doneLoading)}">  
+		        <div class="slds-box slds-align_absolute-center" style="height:8rem">
+                        <div class="slds-spinner_container slds-is-relative">
+                            <lightning:spinner alternativeText="Loading" size="medium" />
+                        </div>
+		    	</div>
+            </aura:if>  
+
+            <aura:if isTrue="{!not(empty(v.listRecords))}">
+                <aura:iteration items="{!v.listRecords}" var="item">  
+                      
+                    <lightning:button variant="base"   
+                                      label="{! 'View ' + v.objectName }"   
+                                      title="View"   
+                                      onclick="{! c.viewRecord }"  
+                                      value="{!item.Id}"/>  
+                    <lightning:recordViewForm recordId="{!item.Id}" objectApiName="{!v.sobjectName}">  
+                          
+                        <div class="slds-grid">  
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning:outputField fieldName="{!v.field1}" />  
+                            </div>  
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning:outputField fieldName="{!v.field2}" />  
+                            </div>  
+                        </div>  
+                        <div class="slds-grid">  
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning:outputField fieldName="{!v.field3}" />  
+                            </div>  
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning:outputField fieldName="{!v.field4}" />  
+                            </div>  
+                        </div>  
+                                  
+                    </lightning:recordViewForm><br/><br/> 
+                      
+    	        </aura:iteration>  
+	        </aura:if>  
+            <aura:if isTrue="{!empty(v.listRecords)}">
+                
+            </aura:if>
+       	</p>  
+                  
+        <aura:set attribute="footer">  
+              
+            <aura:if isTrue="{!and(not(v.showErrors),v.doneLoading)}">  
+                <lightning:button variant="base"   
+                                  label="View All"   
+                                  title="View All Action"   
+                                  onclick="{! c.viewRelatedList }"/>  
+            </aura:if>  
+              
+        </aura:set>  
+          
+    </lightning:card>  
+</aura:component>

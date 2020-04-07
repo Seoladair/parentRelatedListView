@@ -1,0 +1,15 @@
+<design:component>  
+      
+    <design:attribute name="title" label="Title" required="true" default="Account Opportunities over $100k"/>  
+    <design:attribute name="lookupFieldName" label="Lookup Field API Name (field on this object that references parent)" default="eg. AccountId" required="true"/>  
+    <design:attribute name="parentFieldName" label="Parent Field API Name (field on object with related list to parent)" default="eg. AccountId" required="true"/>  
+    <design:attribute name="sobjectName" label="Parent Object API Name" default="eg. Opportunity" required="true"/>  
+    <design:attribute name="childRelName" label="Child Relationship Name to Parent" default="eg. Opportunities" required="true"/>  
+    <design:attribute name="criteria" label="Additonal Criteria (SOQL WHERE clause)"/>  
+    <design:attribute name="iconName" label="Icon Name (SLDS icon name)" default="standard:opportunity" required="true"/>  
+    <design:attribute name="field1" label="Field 1 (API Name)" required="true"/>  
+    <design:attribute name="field2" label="Field 2 (API Name)" required="true"/>  
+    <design:attribute name="field3" label="Field 3 (API Name)" required="true"/>  
+    <design:attribute name="field4" label="Field 4 (API Name)" required="true"/>  
+    
+</design:component>

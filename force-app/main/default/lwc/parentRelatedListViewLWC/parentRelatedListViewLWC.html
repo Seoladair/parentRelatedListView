@@ -1,0 +1,37 @@
+<template>
+    <div class="slds-grid slds-p-horizontal_small">
+        <lightning-card icon-name={iconName} title="Loading...">
+            <!-- If loaded update title with button -->
+            <div>
+                <lightning-button variant="base" label={title} title="View All Action" slot="title" onclick={viewRelatedList}></lightning-button>
+            </div>
+            
+            <div class="slds-p-horizontal_small">
+                <template for:each={listRecords} for:item="item">
+                    <lightning-button variant="base" label={viewObjName} key={item.id} title="View" value={item.Id}></lightning-button>
+                    <lightning-record-view-form record-id={item.id} key={item.id} object-api-name="Opportunity">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning-output-field field-name={field1}></lightning-output-field>
+                            </div> 
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning-output-field field-name={field2}></lightning-output-field>
+                            </div> 
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning-output-field field-name={field3}></lightning-output-field>
+                            </div> 
+                            <div class="slds-col slds-size_1-of-2">  
+                                <lightning-output-field field-name={field4}></lightning-output-field>
+                            </div> 
+                        </div>
+                    </lightning-record-view-form>
+                </template>
+            </div>
+            <div>
+                <p slot="footer">
+                        <lightning-button variant="base" label="View All" title="View All Action" onclick={viewRelatedList}> </lightning-button>
+                </p>
+            </div>
+        </lightning-card>
+    </div>
+</template>
